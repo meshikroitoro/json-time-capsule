@@ -20,8 +20,11 @@ const Header: React.FC<HeaderProps> = ({ onAdminMode, subName, onSubNameChange }
   return (
     <div className="relative text-center space-y-2">
       <div className="flex items-center justify-center gap-2 mb-4">
-        <FileJson className="h-8 w-8 text-slate-600" />
-        <h1 className="text-3xl font-bold text-slate-800">JSON Editor</h1>
+        <h1
+          className="text-3xl font-bold text-blue-600 drop-shadow-lg"
+        >
+          JSON Editor
+        </h1>
         <div className="absolute right-0 top-0">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
