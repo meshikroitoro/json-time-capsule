@@ -246,7 +246,7 @@ const JsonManager: React.FC<JsonManagerProps> = ({
             className={`transition-all font-semibold rounded-xl
                 ${
                   selectedTab === "z"
-                    ? "bg-blue-200 text-black shadow border border-blue-300 hover:bg-blue-200"
+                    ? "bg-blue-200 text-blue-800 shadow border border-blue-300 hover:bg-blue-200"
                     : "hover:bg-blue-50 text-blue-700"
                 }
               `}
