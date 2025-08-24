@@ -66,7 +66,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
   }, [jsonData, search]);
 
   return (
-    <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm rounded-xl transition-all">
+  <Card className="shadow-lg border-0 backdrop-blur-sm rounded-2xl transition-all">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-slate-700">
@@ -78,7 +78,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
               onClick={() => handleCopy(jsonData, title)}
               variant="ghost"
               size="icon"
-              className="hover:bg-blue-100"
+              className="hover:bg-blue-100/70 focus:bg-blue-200/80 transition-colors"
               title="Copy JSON"
             >
               <Copy className="h-5 w-5 text-blue-500" />
@@ -87,7 +87,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
             {extraButton &&
               React.isValidElement(extraButton)
                 ? React.cloneElement(extraButton, {
-                    className: `${extraButton.props.className || ''} hover:bg-teal-100`,
+                    className: `${extraButton.props.className || ''} hover:bg-teal-100/70 focus:bg-teal-200/80 transition-colors`,
                     variant: 'ghost',
                     size: 'icon',
                     title: 'Expand/View Large',
@@ -97,7 +97,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+  <CardContent className="space-y-4 bg-white/80 rounded-xl p-6">
         <div className="flex items-center gap-2 mb-2">
           <Search className="h-4 w-4 text-slate-400" />
           <input
@@ -105,7 +105,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Quick search/filter..."
-            className="w-full px-2 py-1 rounded border border-slate-200 bg-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-200"
+            className="w-full px-2 py-1 rounded border border-slate-200 bg-slate-50 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-200"
           />
         </div>
         <div className="relative group">
@@ -113,10 +113,10 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
             <textarea
               value={jsonData}
               onChange={(e) => handleJsonChange(e.target.value, setJsonData, title)}
-              className={`w-full min-h-[400px] p-4 rounded-lg border-2 font-mono text-sm leading-relaxed resize-y transition-colors
+              className={`w-full min-h-[400px] p-4 rounded-xl border-2 font-mono text-sm leading-relaxed resize-y transition-colors
                 ${isValidJson(jsonData)
-                  ? "border-green-200 focus:border-green-400 bg-green-50/50 text-black"
-                  : "border-red-200 focus:border-red-400 bg-red-50/50 text-black"}
+                  ? "border-green-200 focus:border-green-400 bg-green-50/70 text-black"
+                  : "border-red-200 focus:border-red-400 bg-red-50/70 text-black"}
                 focus:outline-none
                 ${isValidJson(jsonData)
                   ? "focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
@@ -132,11 +132,11 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
               language="json"
               style={oneLight}
               customStyle={{
-                borderRadius: '0.75rem',
+                borderRadius: '1rem',
                 fontSize: 14,
                 minHeight: 520,
-                background: '#f8fafc',
-                padding: 16,
+                background: '#f6faff',
+                padding: 18,
                 margin: 0,
                 border: '1.5px solid #e2e8f0',
                 fontFamily: 'Fira Mono, Menlo, monospace',
@@ -170,7 +170,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
             <Button
               variant="default"
               size="sm"
-              className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white flex items-center gap-2"
+              className="w-full mt-2 bg-blue-500/90 hover:bg-blue-600/90 focus:bg-blue-700/90 text-white flex items-center gap-2 shadow-sm transition-colors"
               onClick={() => formatJson(jsonData, setJsonData, title)}
               disabled={!isValidJson(jsonData)}
             >
@@ -180,7 +180,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
             <Button
               variant="default"
               size="sm"
-              className="w-full mt-2 bg-teal-500 hover:bg-teal-600 text-white flex items-center gap-2"
+              className="w-full mt-2 bg-teal-500/90 hover:bg-teal-600/90 focus:bg-teal-700/90 text-white flex items-center gap-2 shadow-sm transition-colors"
               onClick={onSave}
               disabled={!isValidJson(jsonData)}
             >
