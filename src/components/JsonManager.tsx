@@ -172,22 +172,30 @@ const JsonManager: React.FC<JsonManagerProps> = ({
         className="w-full"
       >
         <TabsList
-          className={`grid grid-cols-${MICRO_SERVICE.length} bg-white/90 rounded-xl shadow mb-4 h-12 text-xl`}
+          className={"flex flex-row rounded-xl mb-4 h-12 text-xl"}
         >
           {MICRO_SERVICE.map((service, idx) => {
             const key = serviceKeys[idx];
             return (
-              <TabsTrigger
-                key={key}
-                value={key}
-                className={`transition-all font-semibold rounded-xl ${
-                  selectedTab === key
-                    ? "bg-blue-100 text-black shadow border border-blue-600 hover:bg-blue-600"
-                    : "hover:bg-blue-50 text-blue-700"
-                }`}
-              >
-                {service}
-              </TabsTrigger>
+<TabsTrigger
+  key={key}
+  value={key}
+  className={`
+    relative flex-1 flex items-center justify-center h-12 mx-1 rounded-xl font-bold transition-all duration-200
+    ${selectedTab === key
+      ? "bg-blue-200 text-white shadow-lg border border-blue-500 scale-105"
+      : "bg-white border border-gray-300 text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:shadow-sm"}
+    active:scale-95
+  `}
+>
+  {service}
+</TabsTrigger>
+
+
+
+
+
+
             );
           })}
         </TabsList>

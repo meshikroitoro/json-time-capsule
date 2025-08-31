@@ -46,6 +46,8 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
     if (!search.trim()) return jsonData;
     try {
       const obj = JSON.parse(jsonData);
+        /* eslint-disable no-console */
+console.log(' jsonData:',  jsonData);
       const str = JSON.stringify(obj, null, 2);
       return str
         .split("\n")
