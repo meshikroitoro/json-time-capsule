@@ -5,28 +5,19 @@ import { Copy, FileJson, Calendar, Expand, Save, Search } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { formatDistanceToNow } from "date-fns";
+import {
+  JSON_EDITOR_COPY_TITLE,
+  JSON_EDITOR_EXPAND_TITLE,
+  JSON_EDITOR_SEARCH_PLACEHOLDER,
+  JSON_EDITOR_PLACEHOLDER,
+  JSON_EDITOR_VALID,
+  JSON_EDITOR_INVALID,
+  JSON_EDITOR_LAST_UPDATED,
+  JSON_EDITOR_FORMAT_BUTTON,
+  JSON_EDITOR_SAVE_BUTTON
+} from '@/constants/MainConstants';
 
-interface JsonEditorCardProps {
-  title: string;
-  jsonData: string;
-  setJsonData: (value: string) => void;
-  lastUpdated: Date;
-  handleCopy: (data: string, type: string) => void;
-  formatJson: (
-    data: string,
-    setter: (value: string) => void,
-    type: string
-  ) => void;
-  handleJsonChange: (
-    value: string,
-    setter: (value: string) => void,
-    type: string
-  ) => void;
-  editingAllowed: boolean;
-  isValidJson: (str: string) => boolean;
-  extraButton?: ReactNode;
-  onSave?: () => void | Promise<void>;
-}
+import { JsonEditorCardProps } from "@/utils/Interfaces";
 
 
 const getRelativeTime = (date: Date) => {
@@ -79,7 +70,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
               variant="ghost"
               size="icon"
               className="hover:bg-blue-100/70 focus:bg-blue-200/80 transition-colors"
-              title="Copy JSON"
+              title={JSON_EDITOR_COPY_TITLE}
             >
               <Copy className="h-5 w-5 text-blue-500" />
             </Button>
@@ -90,7 +81,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
                     className: `${extraButton.props.className || ''} hover:bg-teal-100/70 focus:bg-teal-200/80 transition-colors`,
                     variant: 'ghost',
                     size: 'icon',
-                    title: 'Expand/View Large',
+                    title: JSON_EDITOR_EXPAND_TITLE,
                     children: <Expand className="h-5 w-5 text-teal-500" />,
                   })
                 : extraButton}
@@ -104,7 +95,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Quick search/filter..."
+            placeholder={JSON_EDITOR_SEARCH_PLACEHOLDER}
             className="w-full px-2 py-1 rounded border border-slate-200 bg-slate-50 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-200"
           />
         </div>
@@ -122,7 +113,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
                   ? "focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
                   : "focus:ring-2 focus:ring-offset-2 focus:ring-red-300"}
               `}
-              placeholder={`Enter ${title} data here...`}
+              placeholder={JSON_EDITOR_PLACEHOLDER.replace('{title}', title)}
               spellCheck={false}
               readOnly={!editingAllowed}
               style={{ fontFamily: 'Fira Mono, Menlo, monospace' }}
@@ -156,14 +147,14 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
                     : "bg-red-100 text-red-700 border border-red-200"
                 }`}
               >
-                {isValidJson(jsonData) ? "Valid JSON" : "Invalid JSON"}
+                {isValidJson(jsonData) ? JSON_EDITOR_VALID : JSON_EDITOR_INVALID}
               </div>
             </div>
           )}
         </div>
         <div className="flex items-center gap-2 text-slate-600 text-xs">
           <Calendar className="h-4 w-4" />
-          <span>Last updated {getRelativeTime(lastUpdated)}</span>
+          <span>{JSON_EDITOR_LAST_UPDATED} {getRelativeTime(lastUpdated)}</span>
         </div>
         {editingAllowed && (
           <>
@@ -175,7 +166,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
               disabled={!isValidJson(jsonData)}
             >
               <Save className="h-4 w-4" />
-              Format JSON
+              {JSON_EDITOR_FORMAT_BUTTON}
             </Button>
             <Button
               variant="default"
@@ -185,7 +176,7 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
               disabled={!isValidJson(jsonData)}
             >
               <Save className="h-4 w-4" />
-              Save JSON
+              {JSON_EDITOR_SAVE_BUTTON}
             </Button>
           </>
         )}

@@ -5,17 +5,24 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Shield } from 'lucide-react';
+import {
+  ADMIN_DIALOG_TITLE,
+  ADMIN_DIALOG_DESCRIPTION,
+  ADMIN_DIALOG_USERNAME_LABEL,
+  ADMIN_DIALOG_USERNAME_PLACEHOLDER,
+  ADMIN_DIALOG_PASSWORD_LABEL,
+  ADMIN_DIALOG_PASSWORD_PLACEHOLDER,
+  ADMIN_DIALOG_MODE_ENABLED,
+  ADMIN_DIALOG_MODE_DISABLED,
+  ADMIN_DIALOG_ENTER_VALID,
+  ADMIN_DIALOG_INVALID_CREDENTIALS
+} from '@/constants/MainConstants';
 
 
 // import admin credentials dynamically from JSON
 import { useState, useEffect } from 'react';
 
-interface AdminDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onChangeEditingAllowed: (editingAllowed: boolean) => void;
-  clearPasswordSignal?: boolean;
-}
+import { AdminDialogProps } from "@/utils/Interfaces";
 
 
 const AdminDialog: React.FC<AdminDialogProps> = ({ open, onOpenChange, onChangeEditingAllowed, clearPasswordSignal }) => {
@@ -82,36 +89,36 @@ const AdminDialog: React.FC<AdminDialogProps> = ({ open, onOpenChange, onChangeE
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
-              Administrator Mode
+              {ADMIN_DIALOG_TITLE}
             </DialogTitle>
             <DialogDescription>
-              Enter valid admin credentials to enable admin mode.
+              {ADMIN_DIALOG_DESCRIPTION}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-1 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="admin-username" className="text-sm font-medium text-slate-600">
-                  Admin Username
+                  {ADMIN_DIALOG_USERNAME_LABEL}
                 </Label>
                 <Input
                   id="admin-username"
                   value={adminUsername}
                   onChange={(e) => setAdminUsername(e.target.value)}
-                  placeholder="Enter admin username"
+                  placeholder={ADMIN_DIALOG_USERNAME_PLACEHOLDER}
                   className="text-sm"
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="admin-password" className="text-sm font-medium text-slate-600">
-                  Admin Password
+                  {ADMIN_DIALOG_PASSWORD_LABEL}
                 </Label>
                 <Input
                   id="admin-password"
                   type="password"
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
-                  placeholder="Enter admin password"
+                  placeholder={ADMIN_DIALOG_PASSWORD_PLACEHOLDER}
                   className="text-sm"
                 />
               </div>
@@ -125,12 +132,12 @@ const AdminDialog: React.FC<AdminDialogProps> = ({ open, onOpenChange, onChangeE
               />
               <Label htmlFor="admin-mode" className="text-sm font-medium text-slate-600">
                 {isAuthorizedAdmin
-                  ? (isAdminMode ? 'Admin mode enabled - JSON editing allowed' : 'Admin mode disabled - JSON editing restricted')
-                  : 'Enter valid admin username and password to enable admin mode'}
+                  ? (isAdminMode ? ADMIN_DIALOG_MODE_ENABLED : ADMIN_DIALOG_MODE_DISABLED)
+                  : ADMIN_DIALOG_ENTER_VALID}
               </Label>
             </div>
             {!isAuthorizedAdmin && (adminUsername && adminPassword) && (
-              <p className="text-sm text-red-600">Invalid admin credentials. Access denied.</p>
+              <p className="text-sm text-red-600">{ADMIN_DIALOG_INVALID_CREDENTIALS}</p>
             )}
           </div>
         </div>

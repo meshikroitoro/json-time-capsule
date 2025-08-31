@@ -2,13 +2,27 @@ import React, { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import JsonEditorCard from "@/components/JsonEditorCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  JSON_MANAGER_COPIED_TITLE,
+  JSON_MANAGER_COPIED_DESC,
+  JSON_MANAGER_COPY_FAILED_TITLE,
+  JSON_MANAGER_COPY_FAILED_DESC,
+  JSON_MANAGER_SAVE_SUCCESS_TITLE,
+  JSON_MANAGER_SAVE_SUCCESS_DESC_PROV,
+  JSON_MANAGER_SAVE_SUCCESS_DESC_UOB,
+  JSON_MANAGER_SAVE_SUCCESS_DESC_CORE,
+  JSON_MANAGER_SAVE_FAILED_TITLE,
+  JSON_MANAGER_SAVE_FAILED_DESC_PROV,
+  JSON_MANAGER_SAVE_FAILED_DESC_UOB,
+  JSON_MANAGER_SAVE_FAILED_DESC_CORE,
+  JSON_MANAGER_TAB_PROV,
+  JSON_MANAGER_TAB_UOB,
+  JSON_MANAGER_TAB_CORE
+} from '@/constants/MainConstants';
 
 import { getJsonData, updateJsonData, getJsonLastUpdated } from "@/lib/jsonApi";
 
-interface JsonManagerProps {
-  editingAllowed: boolean;
-  subName: string;
-}
+import { JsonManagerProps } from "@/utils/Interfaces";
 
 const JsonManager: React.FC<JsonManagerProps> = ({
   editingAllowed,
@@ -123,14 +137,14 @@ const JsonManager: React.FC<JsonManagerProps> = ({
     try {
       await navigator.clipboard.writeText(data);
       toast({
-        title: "Copied!",
-        description: `${type} copied to clipboard.`,
+        title: JSON_MANAGER_COPIED_TITLE,
+        description: JSON_MANAGER_COPIED_DESC.replace('{type}', type),
         duration: 2000,
       });
     } catch (err) {
       toast({
-        title: "Copy failed",
-        description: "Could not copy to clipboard.",
+        title: JSON_MANAGER_COPY_FAILED_TITLE,
+        description: JSON_MANAGER_COPY_FAILED_DESC,
         variant: "destructive",
         duration: 2000,
       });
@@ -171,11 +185,11 @@ const JsonManager: React.FC<JsonManagerProps> = ({
   const handleSaveJsonX = async () => {
     try {
       await updateJsonData("prov", JSON.parse(jsonXData));
-      toast({ title: "Saved!", description: "Prov updated.", duration: 2000 });
+  toast({ title: JSON_MANAGER_SAVE_SUCCESS_TITLE, description: JSON_MANAGER_SAVE_SUCCESS_DESC_PROV, duration: 2000 });
     } catch {
       toast({
-        title: "Save failed",
-        description: "Could not update Prov.",
+        title: JSON_MANAGER_SAVE_FAILED_TITLE,
+        description: JSON_MANAGER_SAVE_FAILED_DESC_PROV,
         variant: "destructive",
         duration: 2000,
       });
@@ -184,11 +198,11 @@ const JsonManager: React.FC<JsonManagerProps> = ({
   const handleSaveJsonY = async () => {
     try {
       await updateJsonData("uob", JSON.parse(jsonYData));
-      toast({ title: "Saved!", description: "UOB updated.", duration: 2000 });
+  toast({ title: JSON_MANAGER_SAVE_SUCCESS_TITLE, description: JSON_MANAGER_SAVE_SUCCESS_DESC_UOB, duration: 2000 });
     } catch {
       toast({
-        title: "Save failed",
-        description: "Could not update UOB.",
+        title: JSON_MANAGER_SAVE_FAILED_TITLE,
+        description: JSON_MANAGER_SAVE_FAILED_DESC_UOB,
         variant: "destructive",
         duration: 2000,
       });
@@ -197,11 +211,11 @@ const JsonManager: React.FC<JsonManagerProps> = ({
   const handleSaveJsonZ = async () => {
     try {
       await updateJsonData("core", JSON.parse(jsonZData));
-      toast({ title: "Saved!", description: "Core updated.", duration: 2000 });
+  toast({ title: JSON_MANAGER_SAVE_SUCCESS_TITLE, description: JSON_MANAGER_SAVE_SUCCESS_DESC_CORE, duration: 2000 });
     } catch {
       toast({
-        title: "Save failed",
-        description: "Could not update Core.",
+        title: JSON_MANAGER_SAVE_FAILED_TITLE,
+        description: JSON_MANAGER_SAVE_FAILED_DESC_CORE,
         variant: "destructive",
         duration: 2000,
       });
@@ -227,7 +241,7 @@ const JsonManager: React.FC<JsonManagerProps> = ({
                 }
               `}
           >
-            Prov
+            {JSON_MANAGER_TAB_PROV}
           </TabsTrigger>
           <TabsTrigger
             value="y"
@@ -239,7 +253,7 @@ const JsonManager: React.FC<JsonManagerProps> = ({
                 }
               `}
           >
-            UOB
+            {JSON_MANAGER_TAB_UOB}
           </TabsTrigger>
           <TabsTrigger
             value="z"
@@ -251,12 +265,12 @@ const JsonManager: React.FC<JsonManagerProps> = ({
                 }
               `}
           >
-            Core
+            {JSON_MANAGER_TAB_CORE}
           </TabsTrigger>
         </TabsList>
         <TabsContent value="x">
           <JsonEditorCard
-            title="Prov"
+            title={JSON_MANAGER_TAB_PROV}
             jsonData={jsonXData}
             setJsonData={setJsonXData}
             lastUpdated={lastUpdatedX}
@@ -270,7 +284,7 @@ const JsonManager: React.FC<JsonManagerProps> = ({
         </TabsContent>
         <TabsContent value="y">
           <JsonEditorCard
-            title="UOB"
+            title={JSON_MANAGER_TAB_UOB}
             jsonData={jsonYData}
             setJsonData={setJsonYData}
             lastUpdated={lastUpdatedY}
@@ -284,7 +298,7 @@ const JsonManager: React.FC<JsonManagerProps> = ({
         </TabsContent>
         <TabsContent value="z">
           <JsonEditorCard
-            title="Core"
+            title={JSON_MANAGER_TAB_CORE}
             jsonData={jsonZData}
             setJsonData={setJsonZData}
             lastUpdated={lastUpdatedZ}
