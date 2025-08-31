@@ -36,13 +36,13 @@ export const JSON_MANAGER_COPIED_DESC = '{type} copied to clipboard.';
 export const JSON_MANAGER_COPY_FAILED_TITLE = 'Copy failed';
 export const JSON_MANAGER_COPY_FAILED_DESC = 'Could not copy to clipboard.';
 export const JSON_MANAGER_SAVE_SUCCESS_TITLE = 'Saved!';
-export const JSON_MANAGER_SAVE_SUCCESS_DESC_PROV = 'Prov updated.';
-export const JSON_MANAGER_SAVE_SUCCESS_DESC_UOB = 'UOB updated.';
-export const JSON_MANAGER_SAVE_SUCCESS_DESC_CORE = 'Core updated.';
+export const JSON_MANAGER_CONFIG_SETTING_UPDATED = 'Config setting updated.';
 export const JSON_MANAGER_SAVE_FAILED_TITLE = 'Save failed';
-export const JSON_MANAGER_SAVE_FAILED_DESC_PROV = 'Could not update Prov.';
-export const JSON_MANAGER_SAVE_FAILED_DESC_UOB = 'Could not update UOB.';
-export const JSON_MANAGER_SAVE_FAILED_DESC_CORE = 'Could not update Core.';
-export const JSON_MANAGER_TAB_PROV = 'Prov';
-export const JSON_MANAGER_TAB_UOB = 'UOB';
-export const JSON_MANAGER_TAB_CORE = 'Core';
+export const JSON_MANAGER_CONFIG_SETTING_UPDATED_FAILED = 'Could not update Config setting.';
+
+
+export const PROV = 'Prov';
+export const UOB = 'UOB';
+export const CORE = 'Core';
+
+export const MICRO_SERVICE = [PROV, UOB, CORE];
