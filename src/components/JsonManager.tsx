@@ -12,6 +12,7 @@ import {
   JSON_MANAGER_CONFIG_SETTING_UPDATED,
   JSON_MANAGER_CONFIG_SETTING_UPDATED_FAILED,
   JSON_MANAGER_SAVE_SUCCESS_TITLE,
+  MicroServiceApiKey,
 } from "@/constants/MainConstants";
 
 import { getJsonData, updateJsonData, getJsonLastUpdated } from "@/lib/jsonApi";
@@ -24,8 +25,6 @@ const JsonManager: React.FC<JsonManagerProps> = ({
 }) => {
   // Derive service keys from MICRO_SERVICE (e.g., Prov -> 'prov')
   const serviceKeys = MICRO_SERVICE.map((s) => s.toLowerCase());
-  // Type for allowed API keys (prov, uob, core)
-  type MicroServiceApiKey = 'prov' | 'uob' | 'core';
   // State for each service's JSON and last updated
   const [jsonData, setJsonData] = useState<Record<string, string>>(() =>
     Object.fromEntries(serviceKeys.map((k) => [k, ""]))

@@ -45,6 +45,6 @@ export const PROV = 'Prov';
 export const UOB = 'UOB';
 export const CORE = 'Core';
 
-export  const MICRO_SERVICE = [PROV, UOB, CORE];
+export const MICRO_SERVICE = [PROV, UOB, CORE] as const;
 
 export type MicroServiceApiKey = typeof MICRO_SERVICE[number];
