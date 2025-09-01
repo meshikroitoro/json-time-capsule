@@ -1,23 +1,28 @@
 // Get last updated date for a single JSON file
 export async function getJsonLastUpdated(key: "prov" | "uob" | "core") {
-  const res = await fetch(
-    `https://localhost:7298/api/configsetting/${key}/last-updated`
-  );
-  if (!res.ok) throw new Error(`Failed to fetch last updated for ${key}`);
-  return res.json() as Promise<{ name: string; lastUpdatedUtc: string }>;
+  // Sample JSON response for demonstration
+  return {
+    name: key,
+    lastUpdatedUtc: "2025-09-01T12:00:00Z"
+  };
 }
 
 export async function getJsonData(key: "prov" | "uob" | "core") {
-  const res = await fetch(`https://localhost:7298/api/configsetting/${key}`);
-  if (!res.ok) throw new Error(`Failed to fetch ${key}`);
-  return res.json();
+  // Sample JSON data for demonstration
+  return {
+    key,
+    data: {
+      example: true,
+      message: `Sample data for ${key}`
+    }
+  };
 }
 
 export async function updateJsonData(key: "prov" | "uob" | "core", data: any) {
-  const res = await fetch(`https://localhost:7298/api/configsetting/${key}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error(`Failed to update ${key}`);
+  // Simulate update and return a sample response
+  return {
+    key,
+    updated: true,
+    received: data
+  };
 }
