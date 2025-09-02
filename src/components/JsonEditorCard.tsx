@@ -14,16 +14,14 @@ import {
   JSON_EDITOR_INVALID,
   JSON_EDITOR_LAST_UPDATED,
   JSON_EDITOR_FORMAT_BUTTON,
-  JSON_EDITOR_SAVE_BUTTON
-} from '@/constants/MainConstants';
+  JSON_EDITOR_SAVE_BUTTON,
+} from "@/constants/MainConstants";
 
 import { JsonEditorCardProps } from "@/utils/Interfaces";
-
 
 const getRelativeTime = (date: Date) => {
   return formatDistanceToNow(date, { addSuffix: true });
 };
-
 
 const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
   title,
@@ -46,8 +44,8 @@ const JsonEditorCard: React.FC<JsonEditorCardProps> = ({
     if (!search.trim()) return jsonData;
     try {
       const obj = JSON.parse(jsonData);
-        /* eslint-disable no-console */
-console.log(' jsonData:',  jsonData);
+      /* eslint-disable no-console */
+      console.log(" jsonData:", jsonData);
       const str = JSON.stringify(obj, null, 2);
       return str
         .split("\n")
@@ -59,10 +57,10 @@ console.log(' jsonData:',  jsonData);
   }, [jsonData, search]);
 
   return (
-  <Card className="shadow-lg border-0 backdrop-blur-sm rounded-2xl transition-all">
+    <Card>
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2 text-slate-700">
+          <CardTitle className="flex items-center gap-2 text-slate-700 mb-0">
             <FileJson className="h-5 w-5" />
             {title}
           </CardTitle>
@@ -75,28 +73,17 @@ console.log(' jsonData:',  jsonData);
               title={JSON_EDITOR_COPY_TITLE}
             >
               <Copy className="h-5 w-5 text-blue-500" />
-            </Button>
-            {/* If extraButton is a React element, clone it and add icon style. Otherwise, render as is. */}
-            {extraButton &&
-              React.isValidElement(extraButton)
-                ? React.cloneElement(extraButton, {
-                    className: `${extraButton.props.className || ''} hover:bg-teal-100/70 focus:bg-teal-200/80 transition-colors`,
-                    variant: 'ghost',
-                    size: 'icon',
-                    title: JSON_EDITOR_EXPAND_TITLE,
-                    children: <Expand className="h-5 w-5 text-teal-500" />,
-                  })
-                : extraButton}
+            </Button>           
           </div>
         </div>
       </CardHeader>
-  <CardContent className="space-y-4 bg-white/80 rounded-xl p-6">
-        <div className="flex items-center gap-2 mb-2">
+      <CardContent className="space-y-4 bg-white/80 rounded-xl p-6">
+        <div className="flex items-center gap-2">
           <Search className="h-4 w-4 text-slate-400" />
           <input
             type="text"
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder={JSON_EDITOR_SEARCH_PLACEHOLDER}
             className="w-full px-2 py-1 rounded border border-slate-200 bg-slate-50 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-200"
           />
@@ -105,34 +92,39 @@ console.log(' jsonData:',  jsonData);
           {editingAllowed && !showRaw ? (
             <textarea
               value={jsonData}
-              onChange={(e) => handleJsonChange(e.target.value, setJsonData, title)}
+              onChange={(e) =>
+                handleJsonChange(e.target.value, setJsonData, title)
+              }
               className={`w-full min-h-[400px] p-4 rounded-xl border-2 font-mono text-sm leading-relaxed resize-y transition-colors
-                ${isValidJson(jsonData)
-                  ? "border-green-200 focus:border-green-400 bg-green-50/70 text-black"
-                  : "border-red-200 focus:border-red-400 bg-red-50/70 text-black"}
+                ${
+                  isValidJson(jsonData)
+                    ? "border-green-200 focus:border-green-400 bg-green-50/70 text-black"
+                    : "border-red-200 focus:border-red-400 bg-red-50/70 text-black"
+                }
                 focus:outline-none
-                ${isValidJson(jsonData)
-                  ? "focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
-                  : "focus:ring-2 focus:ring-offset-2 focus:ring-red-300"}
+                ${
+                  isValidJson(jsonData)
+                    ? "focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
+                    : "focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
+                }
               `}
-              placeholder={JSON_EDITOR_PLACEHOLDER.replace('{title}', title)}
+              placeholder={JSON_EDITOR_PLACEHOLDER.replace("{title}", title)}
               spellCheck={false}
               readOnly={!editingAllowed}
-              style={{ fontFamily: 'Fira Mono, Menlo, monospace' }}
+              style={{ fontFamily: "Fira Mono, Menlo, monospace" }}
             />
           ) : (
             <SyntaxHighlighter
               language="json"
               style={oneLight}
               customStyle={{
-                borderRadius: '1rem',
+                borderRadius: "1rem",
                 fontSize: 14,
                 minHeight: 520,
-                background: '#f6faff',
+                background: "#f6faff",
                 padding: 18,
                 margin: 0,
-                border: '1.5px solid #e2e8f0',
-                fontFamily: 'Fira Mono, Menlo, monospace',
+                fontFamily: "Fira Mono, Menlo, monospace",
               }}
               wrapLines
             >
@@ -149,14 +141,18 @@ console.log(' jsonData:',  jsonData);
                     : "bg-red-100 text-red-700 border border-red-200"
                 }`}
               >
-                {isValidJson(jsonData) ? JSON_EDITOR_VALID : JSON_EDITOR_INVALID}
+                {isValidJson(jsonData)
+                  ? JSON_EDITOR_VALID
+                  : JSON_EDITOR_INVALID}
               </div>
             </div>
           )}
         </div>
         <div className="flex items-center gap-2 text-slate-600 text-xs">
           <Calendar className="h-4 w-4" />
-          <span>{JSON_EDITOR_LAST_UPDATED} {getRelativeTime(lastUpdated)}</span>
+          <span>
+            {JSON_EDITOR_LAST_UPDATED} {getRelativeTime(lastUpdated)}
+          </span>
         </div>
         {editingAllowed && (
           <>

@@ -143,10 +143,7 @@ const JsonManager: React.FC<JsonManagerProps> = ({
   const handleSaveJson = async (key: string) => {
     try {
       const apiKey = key as MicroServiceApiKey;
-      await updateJsonData(
-        apiKey,
-        JSON.parse(jsonData[apiKey])
-      );
+      await updateJsonData(apiKey, JSON.parse(jsonData[apiKey]));
       toast({
         title: JSON_MANAGER_SAVE_SUCCESS_TITLE,
         description: JSON_MANAGER_CONFIG_SETTING_UPDATED,
@@ -170,34 +167,6 @@ const JsonManager: React.FC<JsonManagerProps> = ({
         onValueChange={(v) => setSelectedTab(v)}
         className="w-full"
       >
-        <TabsList
-          className={"flex flex-row rounded-xl mb-4 h-12 text-xl"}
-        >
-          {MICRO_SERVICE.map((service, idx) => {
-            const key = serviceKeys[idx];
-            return (
-<TabsTrigger
-  key={key}
-  value={key}
-  className={`
-    relative flex-1 flex items-center justify-center h-12 mx-1 rounded-xl font-bold transition-all duration-200
-    ${selectedTab === key
-      ? "bg-blue-200 text-white shadow-lg border border-blue-500 scale-105"
-      : "bg-white border border-gray-300 text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:shadow-sm"}
-    active:scale-95
-  `}
->
-  {service}
-</TabsTrigger>
-
-
-
-
-
-
-            );
-          })}
-        </TabsList>
         {MICRO_SERVICE.map((service, idx) => {
           const key = serviceKeys[idx];
           return (
